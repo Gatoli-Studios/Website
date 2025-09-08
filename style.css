@@ -161,9 +161,9 @@ textarea.plain {
     box-sizing: border-box;
     margin-bottom: 1em;
     border: 2px solid rgba(0, 0, 0, 0.1);
-    -webkit-border-radius: 0.333em;
-    -moz-border-radius: 0.333em;
-    border-radius: 0.333em;
+    -webkit-border-radius: 0.16333em;
+    -moz-border-radius: 0.1633em;
+    border-radius: 0.163em;
     color: var(--color-primario);
 }
 
@@ -678,11 +678,11 @@ nav > ul li:hover > ul.sub-menu {
 nav .sub-arrow {
     padding-left: 0.500em;
     vertical-align: middle;
-    font-size: 0.714em;
+    font-size: 0.514em;
 }
 
 nav ul.sub-menu {
-    position: absolute;
+    position: center;
     left: 0;
     z-index: 9999;
  /* level 2 */
@@ -1707,12 +1707,14 @@ a.reply:hover {
     font-size: 0.722em;
     align-items: center;
     text-align: center;
-    padding-bottom: 2rem;
+    padding-bottom: 0.5rem;
+     size: larger;
 }
 
 .widget h4 {
     margin-top: 0;
     color: #ccc;
+    size: larger;
 }
 
 .widget {
@@ -2285,6 +2287,10 @@ section.greyish {
     -webkit-box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
     box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+    object-fit: cover; /* Mantiene proporción sin deformar */
+    overflow: hidden;
+      transition: transform 0.3s ease;
+
 }
 
 .about-us figcaption {
@@ -2303,6 +2309,31 @@ section.greyish {
     font-size: 0.722em;
 }
 
+/* Ajuste para pantallas pequeñas */
+@media (max-width: 768px) {
+
+    .about-us figure {
+        width: 90px;         /* tamaño móvil */
+        aspect-ratio: 1 / 1; /* mantiene la proporción cuadrada */
+        align-items: center;
+    }
+
+  .about-us img {
+    width: 90px;  /* Imagen más pequeña en móvil */
+    height: 90px;
+    object-fit: cover; /* Mantiene proporción sin deformar */
+    overflow: hidden;
+      transition: transform 0.3s ease;
+  }
+
+  .about-us figcaption h4 {
+    font-size: 0.95rem;
+  }
+
+  .about-us figcaption p {
+    font-size: 0.8rem;
+  }
+}
 
 /*----------------------------------------------------------------
     Map
@@ -2697,6 +2728,44 @@ section.greyish {
 /*----------------------------------------------------------------
     Buttons
 ----------------------------------------------------------------*/
+/*----------------------------------------------------------------
+    Botón Send Message
+----------------------------------------------------------------*/
+
+button#send.plain.button.primary {
+    /* Aquí tus estilos personalizados */
+    background-color: var(--color-primario); /* Usa tu variable de color primario */
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+button#send.plain.button.primary:hover {
+    background-color: var(--color-secundario); /* Cambia al color secundario al hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+button#send.plain.button.primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Para dispositivos móviles */
+@media handheld, only screen and (max-width: 48em) {
+    button#send.plain.button.primary {
+        padding: 10px 20px;
+        font-size: 2rem;
+        width: auto; 
+        
+    }
+}
 
 .button,
 input.button {
@@ -2731,6 +2800,7 @@ input.button:hover {
     border-bottom: none;
     background-color: rgba(84,87,102,0.9);
 }
+
 
 .button:active,
 input.button:active {
@@ -3764,7 +3834,9 @@ footer .row-content.buffer {
     display: inline-block;
 }
 
-
+.keep{
+    text-align: center;
+}
 /*----------------------------------------------------------------
     640px Breakpoint
 ----------------------------------------------------------------*/
@@ -3776,6 +3848,17 @@ footer .row-content.buffer {
         font-size: 2.4em;
     }
 
+    /* Ajuste de títulos grandes en móvil */
+#intro .caption h1 {
+    font-size: clamp(9rem, 5vw, 1.5rem); /* crece/disminuye según el ancho */
+    line-height: 1.2;
+    margin: 0 auto;       /* centra horizontalmente */
+    max-width: 90%;       /* no supera los márgenes */
+    text-align: center;   /* centrado del texto */
+    word-wrap: break-word; /* por si acaso la palabra es muy larga */
+}
+
+
     #intro .caption p,
     #intro .caption-mockup p {
         font-size: 0.8em;
@@ -3786,6 +3869,70 @@ footer .row-content.buffer {
     }
 }
 
+
+/* Estilos responsivos para proyectos en móviles */
+@media handheld, only screen and (max-width:48em) {
+  .custom-carousel {
+    padding: 0 1rem;
+  }
+  
+   .item img {
+    max-height: 200px; /* Menor altura en móvil */
+  }
+  .carousel-item {
+    margin-bottom: 1.5rem;
+  }
+  
+  .project-card {
+    flex-direction: column;
+    height: auto;
+    border-radius: 0.8em;
+  }
+  
+  .project-card figure img {
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  .card-content {
+    padding: 0;
+  }
+  
+  .card-content h2 {
+    font-size: 1.5em;
+    margin: 0.3em 0;
+  }
+  
+  .card-content p {
+    font-size: 1em;
+  }
+  
+  /* Ajustes para el slider */
+  .custom-carousel .owl-controls {
+    margin-top: 1rem;
+  }
+  
+  .custom-carousel .owl-pagination {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* Ajustes adicionales para pantallas muy pequeñas */
+@media handheld, only screen and (max-width:30em) {
+  .project-card figure img {
+    height: 200px;
+  }
+  
+  .card-content {
+    padding: 1rem 0.8rem;
+  }
+  
+  .card-content h2 {
+    font-size: 1.3em;
+  }
+}
 /*----------------------------------------------------------------
     768px Breakpoint
 ----------------------------------------------------------------*/
@@ -3794,8 +3941,14 @@ footer .row-content.buffer {
 
     header {
         position: relative !important;
-        background-color: #fff !important;
+        background-color: var(--color-fondo) !important;
+
     }
+
+    header.transparent.light #brand img,
+        header #brand img {
+        filter: none !important; /* anula el logo blanco */
+        }  
 
     #brand a,
     nav a {
@@ -3815,6 +3968,7 @@ footer .row-content.buffer {
     #menu-toggle {
         float: right;
         clear: none;
+         font-size: 2rem; /* Cambia el tamaño */
     }
 
     nav {
@@ -3824,7 +3978,10 @@ footer .row-content.buffer {
 
     nav > ul {
         margin-top: 2em;
+            padding-top: 1.5rem; /* espacio horizontal desde el borde */
+
     }
+    
 
     #brand h1 {
         line-height: 1.8;
@@ -3847,8 +4004,10 @@ footer .row-content.buffer {
         display: block;
         margin: 0;
         padding: 0.625rem 0;
-        border-bottom: 1px solid #DDD !important;
+        border-bottom: 2px solid var(--color-secundario) !important;
         line-height: 1.250rem;
+         font-size: larger;   /* o usa rem, ej: 1.2rem */
+
     }
 
     nav > ul > li > a:hover {
@@ -3863,7 +4022,7 @@ footer .row-content.buffer {
     }
 
     nav > ul > li.menu-item {
-        padding: 1 !important;
+        padding: 2 !important;
     }
 
     nav ul.sub-menu > li > a {
@@ -3873,8 +4032,9 @@ footer .row-content.buffer {
     }
 
     nav ul.sub-menu > li > a {
-        color: #666 !important;
+        color: var(--color-secundario) !important;
         font-size: 0.688rem;
+        font-size: 1em;
     }
 
     nav ul.sub-menu > li > a,
@@ -3898,6 +4058,9 @@ footer .row-content.buffer {
         -webkit-box-shadow: none;
         -moz-box-shadow: none;
         box-shadow: none;
+    }
+    nav > ul > li:last-child {
+    padding-left: 2rem !important; /* en desktop tenías padding distinto en el último li */
     }
 
     #intro {

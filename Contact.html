@@ -63,17 +63,26 @@
 				<section class="row section">
 					<div class="row-content buffer even clear-after">
 						<div class="section-title"><h2>Contact Us</h2></div>	
-						<p>Interesado en trabajar con nosotros o discutir sobre algo en particular? Envianos un mail.</p>
+						<p>Interested in working with us or discussing a project? Drop us an email, we’d love to hear from you!</p>
 						<div class="column nine">
-							<form id="contact-form" class="contact-section" method="post" action="">
+						
+						
+							<form id="contact-form" class="contact-section" action="https://formspree.io/f/xblaqqdn" method="POST">
 								<span class="pre-input"><i class="icon icon-user"></i></span>
-								<input class="name plain buffer" type="text" name="name" placeholder="Full name">
+								<input class="name plain buffer" type="text" name="name" placeholder="Full name" required>
+
 								<span class="pre-input"><i class="icon icon-email"></i></span>
-								<input class="email plain buffer" type="email" name="email" placeholder="Email address">
-								<textarea class="plain buffer" name="message" placeholder="De que quieres hablar?"></textarea>
-								<input id="send" class="plain button primary" type="button" value="Send a Message">
-							</form>	
+								<input class="email plain buffer" type="email" name="email" placeholder="Email address" required>
+
+								<textarea class="plain buffer" name="message" placeholder="Drop your quest details here..." required></textarea>
+
+								<button id="send" class="plain button primary" type="submit">Send a Message</button>
+							</form>
+
+							<!-- Aquí se mostrará el mensaje de éxito o error -->
 							<div id="success"></div>
+
+
 						</div>
 						<div class="column three last">
 							<div class="widget">
@@ -120,8 +129,7 @@
 						</div>														
 					</section><!-- top-footer -->
 					<section id="bottom-footer">
-						<p class="keep-left">&copy; 2025 GATOLI. All Rights Reserved.</p>
-						<p class="keep-right">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
+						<p class="keep">&copy; 2025 GATOLI. All Rights Reserved.</p>
 					</section><!-- bottom-footer -->			
 				</div><!-- row-content -->	
 			</div><!-- row -->	
@@ -131,20 +139,36 @@
 		<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>		
 		<script src="js/plugins.js"></script>
 		<script src="js/Gatoli.js"></script>
-		<script>
-		$(document).ready(function(){
-			$('#send').click(function(){
-				$(this).val('Sending ...');
-				$('#success p').remove();
-				$.post('contact/contact.php', $('#contact-form').serialize(), function(response) {
-					$('#success').html(response);
-					//$('#success').hide('slow');
-					$('#send').val('Send a Message');
-				});
-				return false;
-			});
-		});
-		</script>		
+	<script>
+document.getElementById("contact-form").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const data = new FormData(form);
+
+    try {
+        const response = await fetch(form.action, {
+            method: form.method,
+            body: data,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        const successDiv = document.getElementById("success");
+
+        if (response.ok) {
+            successDiv.innerHTML = "<p style='color:green;'>¡Gracias! Tu mensaje ha sido enviado correctamente.</p>";
+            form.reset(); // Limpia el formulario
+        } else {
+            successDiv.innerHTML = "<p style='color:red;'>Hubo un error al enviar tu mensaje. Intenta de nuevo.</p>";
+        }
+    } catch (error) {
+        document.getElementById("success").innerHTML = "<p style='color:red;'>Error de conexión. Intenta más tarde.</p>";
+    }
+});
+</script>
+
 
 	</body>
 
